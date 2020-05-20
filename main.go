@@ -36,15 +36,24 @@ func main() {
 	db.AutoMigrate(&CreditCard{})
 
 	// Create
-	db.Create(&User{Name: "Camille"})
 	var user User
+	db.Create(&User{Name: "Camille"})
 	db.First(&user, 1)
 	db.Create(&CreditCard{Number: "4444333322221111", UserID: user.ID})
+	db.Create(&CreditCard{Number: "1010292938384747", UserID: user.ID})
+	db.Create(&CreditCard{Number: "1234567812345678", UserID: user.ID})
 
 	// db.First(&expense, "code = ?", "L1212") // find expense with code l1212
 
+	// Query
+	// db.First(&user, 1)
+
+
 	// // Update - update expense's price to 2000
 	// db.Model(&expense).Update("Price", 2000)
+
+	// Delete
+	// db.Where("Number", "9999101011111212").Delete(&CreditCard{})
 
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/", Index)
@@ -62,6 +71,7 @@ func Index(writer http.ResponseWriter, request *http.Request) {
 	// Fetch Camille
 	var user User
 	db.First(&user, 1)
+	json.NewEncoder(writer).Encode(user)
 
 	var credit_cards []CreditCard
 	db.Model(&user).Related(&credit_cards)
