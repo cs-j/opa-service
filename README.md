@@ -1,4 +1,4 @@
 # Guide
 
-To run this project, compile the `whatever.go` file with `go build whatever.go`
-and then run the compiled executable with `./whatever`.
+To run this project, compile the `main.go` file with `go build main.go`
+and then run the compiled executable with `./main`.
